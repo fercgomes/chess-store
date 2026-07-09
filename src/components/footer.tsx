@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { NewsletterForm } from "./newsletter-form";
 
 export function Footer() {
   return (
@@ -78,19 +79,7 @@ export function Footer() {
             <p className="text-sm text-muted mb-3">
               Get notified about new arrivals and exclusive offers.
             </p>
-            <form className="flex gap-2">
-              <input
-                type="email"
-                placeholder="your@email.com"
-                className="flex-1 px-3 py-2 text-sm border border-border rounded-md bg-background"
-              />
-              <button
-                type="submit"
-                className="px-4 py-2 text-sm bg-accent text-white rounded-md hover:bg-accent-dark transition-colors"
-              >
-                Join
-              </button>
-            </form>
+            <NewsletterForm />
           </div>
         </div>
 

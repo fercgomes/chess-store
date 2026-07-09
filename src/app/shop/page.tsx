@@ -1,5 +1,6 @@
 import { products, type Product } from "@/lib/products";
 import { ProductCard } from "@/components/product-card";
+import { CategoryFilter } from "./CategoryFilter";
 
 const categoryLabels: Record<Product["category"], string> = {
   sets: "Chess Sets",
@@ -8,6 +9,8 @@ const categoryLabels: Record<Product["category"], string> = {
   clocks: "Clocks",
   accessories: "Accessories",
 };
+
+const allCategories = Object.keys(categoryLabels) as Product["category"][];
 
 export default async function ShopPage({
   searchParams,
@@ -27,6 +30,13 @@ export default async function ShopPage({
       ? categoryLabels[validCategory]
       : "All Products";
 
+  const productCounts: Record<string, number> = {
+    all: products.length,
+    ...Object.fromEntries(
+      allCategories.map((cat) => [cat, products.filter((p) => p.category === cat).length])
+    ),
+  };
+
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
       <div className="flex items-center justify-between mb-8">
@@ -37,31 +47,7 @@ export default async function ShopPage({
           </p>
         </div>
 
-        <div className="flex gap-2">
-          <a
-            href="/shop"
-            className={`px-3 py-1.5 text-xs rounded-full border transition-colors ${
-              !validCategory
-                ? "bg-accent text-white border-accent"
-                : "border-border text-muted hover:text-foreground"
-            }`}
-          >
-            All
-          </a>
-          {Object.entries(categoryLabels).map(([key, label]) => (
-            <a
-              key={key}
-              href={`/shop?category=${key}`}
-              className={`px-3 py-1.5 text-xs rounded-full border transition-colors ${
-                validCategory === key
-                  ? "bg-accent text-white border-accent"
-                  : "border-border text-muted hover:text-foreground"
-              }`}
-            >
-              {label}
-            </a>
-          ))}
-        </div>
+        <CategoryFilter validCategory={validCategory} productCounts={productCounts} />
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">

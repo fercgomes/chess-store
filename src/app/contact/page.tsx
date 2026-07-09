@@ -1,4 +1,17 @@
+"use client";
+
+import posthog from "posthog-js";
+
 export default function ContactPage() {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const subject = (form.elements.namedItem("subject") as HTMLSelectElement).value;
+    posthog.capture("contact_form_submitted", {
+      subject,
+    });
+  };
+
   return (
     <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-16">
       <h1 className="text-3xl font-bold mb-2">Contact Us</h1>
@@ -8,7 +21,7 @@ export default function ContactPage() {
       </p>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-        <form className="space-y-4">
+        <form className="space-y-4" onSubmit={handleSubmit}>
           <div>
             <label htmlFor="name" className="block text-sm font-medium mb-1">
               Name
@@ -37,6 +50,7 @@ export default function ContactPage() {
             </label>
             <select
               id="subject"
+              name="subject"
               className="w-full px-3 py-2 border border-border rounded-md bg-background text-sm"
             >
               <option>Order inquiry</option>
@@ -87,7 +101,7 @@ export default function ContactPage() {
           <div>
             <h3 className="font-semibold text-sm mb-1">Address</h3>
             <p className="text-sm text-muted">
-              Checkmate & Co.
+              Checkmate &amp; Co.
               <br />
               412 NW Everett St
               <br />

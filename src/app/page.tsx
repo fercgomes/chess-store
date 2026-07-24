@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getFeaturedProducts, products } from "@/lib/products";
 import { ProductCard } from "@/components/product-card";
+import { HeroCTAs } from "./HeroCTAs";
 
 const categories = [
   { name: "Chess Sets", href: "/shop?category=sets", icon: "♚", count: products.filter((p) => p.category === "sets").length },
@@ -29,20 +30,7 @@ export default function Home() {
               From tournament-grade Staunton sets to hand-carved heirloom
               pieces, find the perfect chess set for your style of play.
             </p>
-            <div className="flex gap-4">
-              <Link
-                href="/shop"
-                className="px-6 py-3 bg-accent hover:bg-accent-dark text-white rounded-md font-medium transition-colors"
-              >
-                Shop Collection
-              </Link>
-              <Link
-                href="/about"
-                className="px-6 py-3 border border-gray-600 hover:border-gray-400 text-gray-300 hover:text-white rounded-md font-medium transition-colors"
-              >
-                Our Story
-              </Link>
-            </div>
+            <HeroCTAs />
           </div>
         </div>
         <div className="absolute inset-0 opacity-10 pointer-events-none flex items-center justify-end pr-20">

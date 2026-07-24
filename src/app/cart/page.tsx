@@ -1,8 +1,10 @@
 import Link from "next/link";
+import { CartViewTracker } from "./CartViewTracker";
 
 export default function CartPage() {
   return (
     <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-16">
+      <CartViewTracker />
       <h1 className="text-3xl font-bold mb-8">Your Cart</h1>
 
       <div className="text-center py-16 border border-dashed border-border rounded-lg">

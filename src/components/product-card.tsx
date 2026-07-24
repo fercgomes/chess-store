@@ -1,11 +1,25 @@
+"use client";
+
 import Link from "next/link";
+import posthog from "posthog-js";
 import type { Product } from "@/lib/products";
 import { formatPrice } from "@/lib/products";
 
 export function ProductCard({ product }: { product: Product }) {
+  const handleClick = () => {
+    posthog.capture("product_card_clicked", {
+      product_id: product.id,
+      product_name: product.name,
+      product_category: product.category,
+      price: product.price,
+      in_stock: product.inStock,
+    });
+  };
+
   return (
     <Link
       href={`/product/${product.id}`}
+      onClick={handleClick}
       className="group block bg-card-bg border border-border rounded-lg overflow-hidden hover:shadow-lg transition-shadow"
     >
       <div className="aspect-square bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900 relative flex items-center justify-center">
